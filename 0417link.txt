@@ -1,0 +1,95 @@
+location
+
+http://2.raywebstory.appspot.com/insert_location.jsp?type_id=?&name=?&telephone=?&website=?address=?&latitude=?&longitude=?
+
+http://2.raywebstory.appspot.com/update_location.jsp?loc_id=?&type_id=?&name=?&telephone=?&website=?address=?&latitude=?&longitude=?
+
+http://2.raywebstory.appspot.com/delete_location.jsp?loc_id=?
+
+http://2.raywebstory.appspot.com/search_location.jsp?type_id=?
+
+回傳 XML
+---------------------------------
+<Content>
+<%for(int i=0 ; i < loc.getLocationDataSize() ;  i++){%>
+<item>
+	<loc_id><%=loc.getLocationData(i).getLocationId() %></loc_id>
+    <type_id><%=loc.getLocationData(i).getTypeId() %></type_id>
+    <name><%=loc.getLocationData(i).getName() %></name>
+    <telephone><%=loc.getLocationData(i).getTelephone() %></telephone>
+    <website><%=loc.getLocationData(i).getWebsite() %></website>
+    <address><%=loc.getLocationData(i).getAddress() %></address>
+    <latitude><%=loc.getLocationData(i).getLatitude() %></latitude>
+    <longitude><%=loc.getLocationData(i).getLongitude() %></longitude>
+</item>
+<%}%>
+</Content>
+
+------------------------------
+evaluation
+
+http://2.raywebstory.appspot.com/insert_evaluation.jsp?loc_id=?&user_id=?&grade=?
+
+http://2.raywebstory.appspot.com/insert_evaluation.jsp?id=?&loc_id=?&user_id=?&grade=?
+
+http://2.raywebstory.appspot.com/search_evaluation.jsp?loc_id=?&user_id=?
+
+回傳 XML
+------------------------------
+<Content>
+<item>
+	<id><%=ev.getEvaluationData(0).getId() %></id>
+	<loc_id><%=ev.getEvaluationData(0).getLocationId() %></loc_id>
+    <user_id><%=ev.getEvaluationData(0).getUserId() %></user_id>
+    <grade><%=ev.getEvaluationData(0).getGrade() %></grade>
+</item>
+</Content>
+------------------------------
+user
+
+http://2.raywebstory.appspot.com/insert_user.jsp?user_id=?&name=?
+
+http://2.raywebstory.appspot.com/update_user.jsp?user_id=?&name=?
+
+http://2.raywebstory.appspot.com/delete_user.jsp?user_id=?
+
+http://2.raywebstory.appspot.com/search_user.jsp?user_id=?
+
+回傳 XML
+------------------------------
+
+<Content>
+<item>
+	<user_id><%=user.getUserData(0).getUserId() %></user_id>
+    <name><%=user.getUserData(0).getName() %></name>
+</item>
+</Content>
+
+--------------------------
+type
+
+http://2.raywebstory.appspot.com/search_type.jsp?type_id=?
+
+回傳 XML
+------------------------------
+
+<Content>
+<item>
+    <type_id><%=type.getTypeData(0).getTypeId() %></type_id>
+    <type><%=type.getTypeData(0).getType() %></type>
+</item>
+</Content>
+
+--------------------------
+
+預設 type
+type_id type
+1	美食
+2	風景區
+3	加油站
+4	醫院
+
+
+
+
+
