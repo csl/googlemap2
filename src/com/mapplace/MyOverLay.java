@@ -24,6 +24,8 @@ public class MyOverLay  extends Overlay {
 	 */
     private Bitmap mBubbleIcon, mShadowIcon;
     
+    private Bitmap mNowIcon;
+    
     private MyGoogleMap mLocationViewers;
     
     private Paint	mInnerPaint, mBorderPaint, mTextPaint;
@@ -45,7 +47,7 @@ public class MyOverLay  extends Overlay {
 		
 		mBubbleIcon = BitmapFactory.decodeResource(mLocationViewers.getResources(),R.drawable.bubble);
 		mShadowIcon = BitmapFactory.decodeResource(mLocationViewers.getResources(),R.drawable.shadow);
-		
+		mNowIcon = BitmapFactory.decodeResource(mLocationViewers.getResources(),R.drawable.mappin_blue);
 		showWinInfo = false;
 	}
 	
@@ -60,7 +62,7 @@ public class MyOverLay  extends Overlay {
 		/**
 		 * Test whether a new popup should display
 		 */
-		mSelectedMapLocation = getHitMapLocation(mapView,p);
+		mSelectedMapLocation = getHitMapLocation(mapView, p);
 		if ( isRemovePriorPopup || mSelectedMapLocation != null) 
 		{
 	    mapView.invalidate();
@@ -84,12 +86,14 @@ public class MyOverLay  extends Overlay {
 	}
 	
     @Override
-	public void draw(Canvas canvas, MapView	mapView, boolean shadow) {
-    	
+	public void draw(Canvas canvas, MapView	mapView, boolean shadow) 
+    {
+      drawNowGeoMap(canvas, mapView, shadow);
    		drawMapLocations(canvas, mapView, shadow);
    		drawInfoWindow(canvas, mapView, shadow);
     }
 
+    
     /**
      * Test whether an information balloon should be displayed or a prior balloon hidden.
      */
@@ -118,6 +122,7 @@ public class MyOverLay  extends Overlay {
 
 	    	//  At last test for a match between our Rectangle and the location clicked by the user
     		mapView.getProjection().toPixels(tapPoint, screenCoords);
+    		
     		if (hitTestRecr.contains(screenCoords.x,screenCoords.y)) {
     			hitMapLocation = testLocation;
     			break;
@@ -128,6 +133,20 @@ public class MyOverLay  extends Overlay {
     	tapPoint = null;
     	
     	return hitMapLocation; 
+    }
+    
+    private void drawNowGeoMap(Canvas canvas, MapView mapView, boolean shadow) 
+    {
+      Paint paint = new Paint();
+      Point myScreenCoords = new Point();
+
+      mapView.getProjection().toPixels(mLocationViewers.nowGeoPoint, myScreenCoords);
+      paint.setStrokeWidth(1);
+      paint.setARGB(255, 255, 0, 0);
+      paint.setStyle(Paint.Style.STROKE);
+
+      canvas.drawBitmap(mNowIcon, myScreenCoords.x, myScreenCoords.y, paint);
+      canvas.drawText("²{¦b¦ì¸m", myScreenCoords.x, myScreenCoords.y, paint);
     }
     
     private void drawMapLocations(Canvas canvas, MapView	mapView, boolean shadow) {

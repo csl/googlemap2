@@ -65,7 +65,7 @@ public class MyGoogleMap extends MapActivity
 
   private Button mButton01,mButton02,mButton03,mButton04,mButton05;
   private int intZoomLevel=0;//geoLatitude,geoLongitude; 
-  private GeoPoint nowGeoPoint;
+  public GeoPoint nowGeoPoint;
   
   private UserXMLStruct user_xmls;
   private String name = "";
@@ -508,7 +508,8 @@ public class MyGoogleMap extends MapActivity
       MapController myMC = mapview.getController(); 
       myMC.animateTo(gp); 
       myMC.setZoom(zoomLevel); 
-      mapview.setSatellite(false); 
+      //mapview.setSatellite(false);
+      
     } 
     catch(Exception e) 
     { 

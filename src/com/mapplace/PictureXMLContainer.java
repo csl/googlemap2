@@ -27,7 +27,7 @@ public class PictureXMLContainer
 	
 	public int getSize()
 	{
-	  return size;	  
+	  return picture_item.size();	  
 	}
 
 	public void addXMLItem(PictureXMLStruct item) 
