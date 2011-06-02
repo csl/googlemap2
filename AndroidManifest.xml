@@ -26,6 +26,7 @@
         <activity android:name="ReflectionListview"></activity>
         <activity android:name="ShowReflection"></activity>
         <activity android:name="ShowLocation"></activity>
+        <activity android:name="ShowImage"></activity>
         
     </application>
     <uses-sdk android:minSdkVersion="8" />

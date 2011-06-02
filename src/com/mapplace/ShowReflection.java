@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -53,6 +56,7 @@ public class ShowReflection extends Activity
   private PictureXMLContainer PictureContainer;
   private String imageFileURL;
   private String image_key;
+  private cImageAdapter adapter;
   
   @Override
   public void onCreate(Bundle savedInstanceState) 
@@ -94,7 +98,7 @@ public class ShowReflection extends Activity
         e.printStackTrace();
       }       
       
-      cImageAdapter adapter = new cImageAdapter(this);
+      adapter = new cImageAdapter(this);
       adapter.RemoteImages = new String[PictureContainer.getSize()];
       
       for (int i=0; i<PictureContainer.getSize(); i++) 
@@ -104,6 +108,23 @@ public class ShowReflection extends Activity
       }
       
       gallery.setAdapter(adapter);
+
+      gallery.setOnItemClickListener(new OnItemClickListener() {
+
+        public void onItemClick(AdapterView parent, View v, int position, long id) {
+
+            //openOptionsDialog(Integer.toString(position));
+          
+          Bundle bData = new Bundle();          
+          Intent newAct = new Intent();
+          newAct.setClass( ShowReflection.this, ShowImage.class );
+          bData.putString("image_url", adapter.RemoteImages[position]);
+          newAct.putExtras( bData );
+
+          startActivity( newAct );          
+        }      
+      });
+      
       getReflectionInfo();
   }
   
@@ -180,10 +201,11 @@ public class ShowReflection extends Activity
                           }
              
               /* Image should be scaled as width/height are set. */
-              //i.setScaleType(ImageView.ScaleType.FIT_CENTER);
+              i.setScaleType(ImageView.ScaleType.FIT_CENTER);
                           
               /* Set the Width/Height of the ImageView. */
-              i.setLayoutParams(new Gallery.LayoutParams(200, 200));              
+              i.setLayoutParams(new Gallery.LayoutParams(150, 150));
+              
               return i;
           }
    
